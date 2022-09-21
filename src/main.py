@@ -1,8 +1,8 @@
 from flask import Flask
 
-app = Flask(__name__)
+def create_app():
+    #Create flask app object
+    app = Flask(__name__)
+    app.config.from_object("config.app_config")
 
-@app.route('/')
-def welcome():
-    return "Tablature API under construction"
-
+    return app
