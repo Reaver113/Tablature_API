@@ -2,7 +2,7 @@ from main import db
 
 class Tab(db.Model):
     #define table name in DB
-    __tablname__="tabs"
+    __tablename__= "tabs"
     #set columns
     tab_id = db.Column(db.Integer, primary_key = True)
     artist = db.Column(db.Integer) #foriegn key
