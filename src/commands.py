@@ -65,5 +65,36 @@ def seed_db():
     db.session.add(album3)
     db.session.add(album4)
     db.session.add(album5)
+
+    #Seed tunings
+    tuning1 = Tuning(
+        name = "E standard",
+        notes = "E,A,D,G,B,E"
+    )
+    tuning2 = Tuning(
+        name = "Drop D",
+        notes = "D,A,D,G,B,E"
+    )
+    tuning3 = Tuning(
+        name = "Drop C",
+        notes = "C,G,C,F,A,D"
+    )
+    db.session.add(tuning1)
+    db.session.add(tuning2)
+    db.session.add(tuning3)
+
+    #Seed instruments
+    instruments1 = Instrument(
+        name = "Guitar",
+        strings = "6"
+    )
+    instruments2 = Instrument(
+        name = "Bass",
+        strings = "4"
+    )
+    db.session.add(instruments1)
+    db.session.add(instruments2)
+
+    #commit to db
     db.session.commit()
     print("Tables Seeded")
