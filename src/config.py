@@ -5,7 +5,7 @@ class Config(object):
     # accss to .env and get value of SECRET_KEY
     JWT_SECRET_KEY = os.environ.get("SECRET_KEY")
     @property
-    def SQLALCHEMY_DATANASE_URI(self):
+    def SQLALCHEMY_DATABASE_URI(self):
         #access to .env and get the value of DATABASE_URL
         value = os.environ.get("DATABASE_URL")
 
