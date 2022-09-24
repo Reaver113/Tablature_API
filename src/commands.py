@@ -1,5 +1,5 @@
 from flask import Blueprint
-from main import db
+from main import db, bcrypt
 from models.albums import Album
 from models.artists import Artist
 from models.instruments import Instrument
@@ -97,6 +97,29 @@ def seed_db():
     db.session.add(instruments1)
     db.session.add(instruments2)
 
+    #Seed Users
+    user1 = Username(
+        username = "Reaver113",
+        email = "test@gmail.com",
+        password = bcrypt.generate_password_hash("12345678").decode("utf-8"),
+        role = "Standard"
+    )
+    user2 = Username(
+        username= "Tabmin",
+        email = "tabmin@gmail.com",
+        password = bcrypt.generate_password_hash("12345678").decode("utf-8"),
+        role = "Moderator"
+        )
+    user3 = Username(
+        username = "Andy",
+        email = "andy@gmail.com",
+        password = bcrypt.generate_password_hash("12345678").decode("utf-8"),
+        role = "Uploader"
+    )
+
+    db.session.add(user1)
+    db.session.add(user2)
+    db.session.add(user3)
     #commit to db
     db.session.commit()
     print("Tables Seeded")
