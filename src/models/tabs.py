@@ -6,7 +6,7 @@ class Tab(db.Model):
     #set columns
     tab_id = db.Column(db.Integer, primary_key = True)
     artist = db.Column(db.Integer) #foriegn key
-    song = db.Column(db.String())
+    song = db.Column(db.String(), nullable = False)
     type = db.Column(db.Integer()) #foriegn key
     tuning = db.Column(db.Integer) #foriegn key
     uploaded = db.Column(db.Integer) #foriegn key

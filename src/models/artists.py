@@ -5,7 +5,7 @@ class Artist(db.Model):
     __tablename__= "artists"
     #set columns
     artist_id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String())
-    genre = db.Column(db.String())
+    name = db.Column(db.String(), nullable = False)
+    genre = db.Column(db.String(), nullable = False)
     albums = db.Column(db.Integer) #foriegn key
 

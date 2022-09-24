@@ -5,5 +5,5 @@ class Album(db.Model):
     __tablename__= "albums"
     #set columns
     album_id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String())
-    release = db.Column(db.Date())
+    name = db.Column(db.String(), nullable = False)
+    release = db.Column(db.Date(), nullable = False)

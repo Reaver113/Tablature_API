@@ -5,6 +5,7 @@ from models.artists import Artist
 from models.instruments import Instrument
 from models.tunings import Tuning
 from models.tabs import Tab
+from models.users import Username
 from datetime import date
 
 db_commands = Blueprint("db", __name__)
@@ -60,6 +61,7 @@ def seed_db():
         name = "New Levels New Devils",
         release = date(day = 12, month = 10, year = 2018)
     )
+    
     db.session.add(album1)
     db.session.add(album2)
     db.session.add(album3)
