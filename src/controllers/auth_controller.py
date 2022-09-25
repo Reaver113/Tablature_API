@@ -52,8 +52,15 @@ def login_user():
     if not bcrypt.check_password_hash(user.password, user_fields["password"]):
         return {"Error": "Password not found"}
 
-    # If credentials are valid generate token and return to user 
-    token = create_access_token(identity=str(user.user_id), expires_delta=timedelta(days=1))
+        # If credentials are valid generate token and return to user based on role
+    elif user.role == "Moderator":
+        token = create_access_token(identity=str(user.user_id) + ("Moderator"), expires_delta=timedelta(days=1))
+        return {"username": user.username, "role": user.role, "token": token, "message": "You are now logged in as a Moderator"}
+    elif user.role == "Uploader":
+        token = create_access_token(identity=str(user.user_id) + ("Uploader"), expires_delta=timedelta(days=1))
+        return {"username": user.username, "role": user.role, "token": token, "message": "You are now logged in as an Uploader"}
+    elif user.role == "Standard":
+        token = create_access_token(identity=str(user.user_id) + ("Standard"), expires_delta=timedelta(days=1))
+        return {"username": user.username, "role": user.role, "token": token, "message": "You are now logged in as a standard user"}
 
-    return {"username": user.username, "token": token}
-    #
+

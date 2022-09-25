@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from main import db
 from models.albums import Album
 from schemas.album_schema import album_schema, albums_schema
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 albums = Blueprint("albums", __name__, url_prefix="/albums")
 # Query all albums
@@ -23,7 +24,14 @@ def get_album(id):
 
 # Post an album
 @albums.route("/", methods=["POST"])
+@jwt_required()
 def new_album():
+    print(get_jwt_identity())
+    if not "Moderator" in get_jwt_identity():
+        if not "Uploader" in get_jwt_identity():
+            return {"Error": "You do not have the credentials to complete this action"}
+
+
     album_fields = album_schema.load(request.json)
     album = Album(
         name = album_fields["name"],
@@ -35,7 +43,10 @@ def new_album():
 
 # Delete an album
 @albums.route("/<int:id>", methods = ["DELETE"])
+@jwt_required()
 def delete_album(id):
+    if not "Moderator" in get_jwt_identity():
+        return {"Error": "You do not have the credentials to complete this action"}
     album = Album.query.get(id)
     if not album:
         return{"Error": "Album not found"}
@@ -46,7 +57,10 @@ def delete_album(id):
 
 # Update an album
 @albums.route("/<int:id>", methods = ["PUT"])
+@jwt_required()
 def update_album(id):
+    if not "Moderator" in get_jwt_identity():
+        return {"Error": "You do not have the credentials to complete this action"}
     album = Album.query.get(id)
     if not album:
         return{"Error": "Album not found"}

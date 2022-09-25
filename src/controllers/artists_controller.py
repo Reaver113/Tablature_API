@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from main import db
 from models.artists import Artist
 from schemas.artist_schema import artist_schema, artists_schema
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 artists = Blueprint("artists", __name__, url_prefix="/artists")
 
@@ -24,7 +25,13 @@ def get_artist(id):
 
 # Post and Artist
 @artists.route("/", methods=["POST"])
+@jwt_required()
 def new_artist():
+    if not "Moderator" in get_jwt_identity():
+        if not "Uploader" in get_jwt_identity():
+            return {"Error": "You do not have the credentials to complete this action"}
+
+
     artist_fields = artist_schema.load(request.json)
     artist = Artist(
         name = artist_fields["name"],
@@ -37,7 +44,10 @@ def new_artist():
 
 # Delete an Artist
 @artists.route("/<int:id>", methods = ["DELETE"])
+@jwt_required()
 def delete_artist(id):
+    if not "Moderator" in get_jwt_identity():
+        return {"Error": "You do not have the credentials to complete this action"}
     artist = Artist.query.get(id)
     if not artist:
         return{"Error": "Artist not found"}
@@ -48,7 +58,10 @@ def delete_artist(id):
 
 # Update an artist
 @artists.route("/<int:id>", methods = ["PUT"])
+@jwt_required()
 def update_artist(id):
+    if not "Moderator" in get_jwt_identity():
+        return {"Error": "You do not have the credentials to complete this action"}
     artist = Artist.query.get(id)
     if not artist:
         return{"Error": "Artist not found"}
