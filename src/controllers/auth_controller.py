@@ -20,7 +20,7 @@ def register_user():
     #check if username is in db
     user = Username.query.filter_by(username=user_fields["username"]).first()
     if user:
-        return {"Error": "User already exists"}
+        return {"Error": "Username already exists"}
 
     #create user object
     user = Username(
@@ -38,3 +38,22 @@ def register_user():
     token = create_access_token(identity=str(user.user_id), expires_delta=timedelta(days=1))
 
     return {"username": user.username, "token": token}
+
+# Login Process
+@auth.route("/login", methods = ["POST"])
+def login_user():
+    # Get username and password from request
+    user_fields = username_schema.load(request.json)
+
+    # Check username exists and password is valid
+    user = Username.query.filter_by(username=user_fields["username"]).first()
+    if not user:
+        return {"Error": "Username not found"}
+    if not bcrypt.check_password_hash(user.password, user_fields["password"]):
+        return {"Error": "Password not found"}
+
+    # If credentials are valid generate token and return to user 
+    token = create_access_token(identity=str(user.user_id), expires_delta=timedelta(days=1))
+
+    return {"username": user.username, "token": token}
+    #

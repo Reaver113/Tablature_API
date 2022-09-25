@@ -7,4 +7,4 @@ class Username(db.Model):
     username = db.Column(db.String(), nullable = False,  unique = True)
     email = db.Column(db.String(), nullable = False, unique = True)
     password = db.Column(db.String(), nullable = False)
-    role = db.Column(db.String(), nullable = False)
+    role = db.Column(db.String(), nullable = False, default = "Standard")
