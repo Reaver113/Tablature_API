@@ -7,7 +7,7 @@ class Artist(db.Model):
     artist_id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(), nullable = False)
     genre = db.Column(db.String(), nullable = False)
-    album_id = db.relationship(
+    albums = db.relationship(
         "Album",
         backref = "artist"
     )

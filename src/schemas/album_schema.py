@@ -1,12 +1,12 @@
 from main import ma
 from marshmallow import fields
-from schemas.artist_schema import ArtistSchema
 
 class AlbumSchema(ma.Schema):
     class Meta:
-        fields = ["name", "release", "artist_id", "artist"]
-        load_only = ["artist_id"]
-    artist = fields.Nested(ArtistSchema)
+        ordered = True
+        fields = ["album_id", "name", "release", "artist"]
+        load_only = ["album_id"]
+    artist = fields.Nested("ArtistSchema", only = ("name",))
 
 
 #single schema
