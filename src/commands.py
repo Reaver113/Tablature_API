@@ -37,29 +37,35 @@ def seed_db():
     )
     db.session.add(artist1)
     db.session.add(artist2)
+    db.session.commit()
 
 
     #Seed albums
 
     album1 = Album(
         name = "Periphery II",
-        release = date(day = 29, month = 6, year = 2012)
+        release = date(day = 29, month = 6, year = 2012),
+        artist = artist1
     )
     album2 = Album(
         name = "Periphery III",
-        release = date(day = 22, month = 7, year = 2016)
+        release = date(day = 22, month = 7, year = 2016),
+        artist = artist1
     )
     album3 = Album(
         name = "Periphery IV",
-        release = date(day = 5, month = 4, year = 2019)
+        release = date(day = 5, month = 4, year = 2019),
+        artist = artist1
     )
     album4 = Album(
         name = "The Worst",
-        release = date(day = 21, month = 7, year = 2017)
+        release = date(day = 21, month = 7, year = 2017),
+        artist = artist2
     )
     album5 = Album(
         name = "New Levels New Devils",
-        release = date(day = 12, month = 10, year = 2018)
+        release = date(day = 12, month = 10, year = 2018),
+        artist = artist2
     )
     
     db.session.add(album1)
@@ -67,10 +73,11 @@ def seed_db():
     db.session.add(album3)
     db.session.add(album4)
     db.session.add(album5)
+    db.session.commit()
 
     #Seed tunings
     tuning1 = Tuning(
-        name = "E standard",
+        name = "E Standard",
         notes = "E,A,D,G,B,E"
     )
     tuning2 = Tuning(
@@ -84,6 +91,7 @@ def seed_db():
     db.session.add(tuning1)
     db.session.add(tuning2)
     db.session.add(tuning3)
+    db.session.commit()
 
     #Seed instruments
     instruments1 = Instrument(
@@ -96,6 +104,7 @@ def seed_db():
     )
     db.session.add(instruments1)
     db.session.add(instruments2)
+    db.session.commit()
 
     #Seed Users
     user1 = Username(
@@ -116,10 +125,12 @@ def seed_db():
         password = bcrypt.generate_password_hash("12345678").decode("utf-8"),
         role = "Uploader"
     )
-
     db.session.add(user1)
     db.session.add(user2)
     db.session.add(user3)
+
+
+    
     #commit to db
     db.session.commit()
     print("Tables Seeded")

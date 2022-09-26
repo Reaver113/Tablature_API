@@ -35,7 +35,8 @@ def new_album():
     album_fields = album_schema.load(request.json)
     album = Album(
         name = album_fields["name"],
-        release = album_fields["release"]
+        release = album_fields["release"],
+        artist_id = album_fields["artist_id"]
     )
     db.session.add(album)
     db.session.commit()

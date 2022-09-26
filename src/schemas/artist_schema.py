@@ -1,8 +1,12 @@
-from main import ma 
+from main import ma
+from marshmallow import fields
+
 
 class ArtistSchema(ma.Schema):
     class Meta:
-        fields = ["name", "genre", "albums"]
+        fields = ["name", "genre", "album_id", "albums"]
+        load_only = ["album_id"]
+
 
 
 #single schema
