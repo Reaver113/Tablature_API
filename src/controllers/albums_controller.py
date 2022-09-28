@@ -1,7 +1,9 @@
 from flask import Blueprint, jsonify, request
 from main import db
 from models.albums import Album
+from models.tabs import Tab
 from schemas.album_schema import album_schema, albums_schema
+from schemas.tab_schema import tab_schema, tabs_schema
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 albums = Blueprint("albums", __name__, url_prefix="/albums")

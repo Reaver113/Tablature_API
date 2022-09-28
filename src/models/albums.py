@@ -8,3 +8,7 @@ class Album(db.Model):
     name = db.Column(db.String(), nullable = False)
     release = db.Column(db.Date(), nullable = False)
     artist_id = db.Column(db.Integer, db.ForeignKey("artists.artist_id"), nullable = False)
+    tabs = db.relationship(
+        "Tab",
+        backref = "albums"
+    )

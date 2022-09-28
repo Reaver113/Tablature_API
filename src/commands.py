@@ -38,6 +38,7 @@ def seed_db():
     db.session.add(artist1)
     db.session.add(artist2)
     db.session.commit()
+    print("artists created")
 
 
     #Seed albums
@@ -74,6 +75,7 @@ def seed_db():
     db.session.add(album4)
     db.session.add(album5)
     db.session.commit()
+    print("albums created")
 
     #Seed tunings
     tuning1 = Tuning(
@@ -92,6 +94,7 @@ def seed_db():
     db.session.add(tuning2)
     db.session.add(tuning3)
     db.session.commit()
+    print("tunings created")
 
     #Seed instruments
     instruments1 = Instrument(
@@ -105,6 +108,7 @@ def seed_db():
     db.session.add(instruments1)
     db.session.add(instruments2)
     db.session.commit()
+    print("instruments created")
 
     #Seed Users
     user1 = Username(
@@ -128,9 +132,22 @@ def seed_db():
     db.session.add(user1)
     db.session.add(user2)
     db.session.add(user3)
+    db.session.commit()
+    print("Users created")
 
+    tab1 = Tab(
+        artist = artist1,
+        album = album1,
+        song = "Froggin Bullfish",
+        instrument = instruments1,
+        tuning = tuning1,
+        uploaded_by = user3,
+        uploaded_date = date.today()
+    )
+    db.session.add(tab1)
 
     
     #commit to db
     db.session.commit()
+    print("tabs created")
     print("Tables Seeded")

@@ -7,3 +7,7 @@ class Tuning(db.Model):
     tuning_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), nullable = False)
     notes = db.Column(db.String(), nullable = False)
+    tabs = db.relationship(
+        "Tab",
+        backref = "tunings"
+    )
