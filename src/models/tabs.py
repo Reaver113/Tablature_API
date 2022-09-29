@@ -11,5 +11,5 @@ class Tab(db.Model):
     song = db.Column(db.String(), nullable = False)
     instrument_id = db.Column(db.Integer, db.ForeignKey("instruments.instrument_id"), nullable = False)
     tuning_id = db.Column(db.Integer, db.ForeignKey("tunings.tuning_id"), nullable = False)
-    uploaded_by = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable = False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable = False)
     uploaded_date = db.Column(db.Date(), nullable = False)

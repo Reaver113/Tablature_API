@@ -6,12 +6,12 @@ from schemas.tuning_schema import TuningSchema
 class TabSchema(ma.Schema):
     class Meta:
         odered = True
-        fields = ["artist", "album", "tuning", "instrument", "song", "uploaded_by", "uploaded_date"]
+        fields = ["song","uploaded_by", "uploaded_date", "artist", "album",]
         load_only = ["tab_id",]
     artist = fields.Nested("ArtistSchema", only = ("name",))
     album = fields.Nested("AlbumSchema", only = ("name",))
-    tuning = fields.List(fields.Nested(TuningSchema, only = ("name",)))
-    uploaded_by = fields.List(fields.Nested(UsernameSchema, only = ("name",)))
+    #tuning = fields.Nested(TuningSchema, only = ("notes",))
+    uploaded_by = fields.Nested(UsernameSchema, only = ("username",))
 
 #single schema
 tab_schema = TabSchema()

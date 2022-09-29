@@ -8,3 +8,7 @@ class Username(db.Model):
     email = db.Column(db.String(), nullable = False, unique = True)
     password = db.Column(db.String(), nullable = False)
     role = db.Column(db.String(), nullable = False, default = "Standard")
+    tabs = db.relationship(
+        "Tab",
+        backref = "uploaded_by"
+    )

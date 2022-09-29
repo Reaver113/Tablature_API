@@ -141,7 +141,7 @@ def seed_db():
         song = "Froggin Bullfish",
         instrument = instruments1,
         tuning = tuning1,
-        uploaded_by = user3.user_id,
+        uploaded_by = user3,
         uploaded_date = date.today()
     )
     db.session.add(tab1)
