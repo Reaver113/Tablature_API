@@ -9,5 +9,5 @@ class Instrument(db.Model):
     strings = db.Column(db.Integer, nullable = False)
     tabs = db.relationship(
         "Tab",
-        backref = "instruments"
+        backref = "instrument"
     )

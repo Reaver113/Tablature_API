@@ -136,12 +136,12 @@ def seed_db():
     print("Users created")
 
     tab1 = Tab(
-        artist = artist1,
-        album = album1,
+        artist_id = artist1,
+        album_id = album1,
         song = "Froggin Bullfish",
-        instrument = instruments1,
-        tuning = tuning1,
-        uploaded_by = user3,
+        instrument_id = instruments1,
+        tuning_id = tuning1,
+        uploaded_by = user3.user_id,
         uploaded_date = date.today()
     )
     db.session.add(tab1)

@@ -10,5 +10,5 @@ class Album(db.Model):
     artist_id = db.Column(db.Integer, db.ForeignKey("artists.artist_id"), nullable = False)
     tabs = db.relationship(
         "Tab",
-        backref = "albums"
+        backref = "album"
     )

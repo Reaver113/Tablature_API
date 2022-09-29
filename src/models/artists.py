@@ -13,7 +13,7 @@ class Artist(db.Model):
     )
     tabs = db.relationship(
         "Tab",
-        backref = "artists"
+        backref = "artist"
     )
 
 

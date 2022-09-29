@@ -9,5 +9,5 @@ class Tuning(db.Model):
     notes = db.Column(db.String(), nullable = False)
     tabs = db.relationship(
         "Tab",
-        backref = "tunings"
+        backref = "tuning"
     )
