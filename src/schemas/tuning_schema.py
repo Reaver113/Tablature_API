@@ -5,7 +5,8 @@ from marshmallow import fields
 
 class TuningSchema(ma.Schema):
     class Meta:
-        feilds = ("tuning_id", "name", "song", "notes")
+        feilds = ("tuning_id", "name", "notes", "song")
+        load_only = ("tuning_id")
         tabs = fields.List(fields.Nested("TabSchema", only = ("song",)))
 
 
