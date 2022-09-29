@@ -140,11 +140,85 @@ def seed_db():
         album = album1,
         song = "Froggin Bullfish",
         instrument = instruments1,
+        tuning = tuning3,
+        uploaded_by = user3,
+        uploaded_date = date.today()
+    )
+    tab2 = Tab(
+        artist = artist1,
+        album = album1,
+        song = "Scarlet",
+        instrument = instruments1,
+        tuning = tuning3,
+        uploaded_by = user3,
+        uploaded_date = date.today()
+    )
+    tab3 = Tab(
+        artist = artist1,
+        album = album2,
+        song = "The way the news goes",
+        instrument = instruments1,
+        tuning = tuning3,
+        uploaded_by = user3,
+        uploaded_date = date.today()
+    )
+    tab4 = Tab(
+        artist = artist2,
+        album = album5,
+        song = "G.O.A.T",
+        instrument = instruments1,
         tuning = tuning1,
         uploaded_by = user3,
         uploaded_date = date.today()
     )
+    tab5 = Tab(
+        artist = artist2,
+        album = album5,
+        song = "Yass (ft. Chon)",
+        instrument = instruments1,
+        tuning = tuning1,
+        uploaded_by = user2,
+        uploaded_date = date.today()
+    )
+    tab6 = Tab(
+        artist = artist2,
+        album = album5,
+        song = "So Strange (ft. Cuco)",
+        instrument = instruments1,
+        tuning = tuning1,
+        uploaded_by = user2,
+        uploaded_date = date.today()
+    )
+    tab7 = Tab(
+        artist = artist2,
+        album = album4,
+        song = "The Worst",
+        instrument = instruments1,
+        tuning = tuning1,
+        uploaded_by = user2,
+        uploaded_date = date.today()
+    )
+    tab8 = Tab(
+        artist = artist2,
+        album = album4,
+        song = "Icronic",
+        instrument = instruments1,
+        tuning = tuning1,
+        uploaded_by = user2,
+        uploaded_date = date.today()
+    )
+    
+    
     db.session.add(tab1)
+    db.session.add(tab2)
+    db.session.add(tab3)
+    db.session.add(tab4)
+    db.session.add(tab5)
+    db.session.add(tab6)
+    db.session.add(tab7)
+    db.session.add(tab8)
+
+
 
     
     #commit to db
