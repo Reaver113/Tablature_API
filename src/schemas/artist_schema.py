@@ -9,8 +9,7 @@ class ArtistSchema(ma.Schema):
         fields = ["artist_id", "name", "genre", "albums"]
         load_only = ["artist_id"]
     albums = fields.List(fields.Nested(AlbumSchema, only = ("name", "release",)))
-
-
+    
 #single schema
 artist_schema = ArtistSchema()
 #multiple

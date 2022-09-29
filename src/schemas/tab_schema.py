@@ -7,8 +7,8 @@ from schemas.instrument_schema import InstrumentSchema
 class TabSchema(ma.Schema):
     class Meta:
         ordered = True
-        fields = ["song", "uploaded_by", "uploaded_date", "instrument", "tuning", "artist", "album",]
-        load_only = ["tab_id",]
+        fields = ["song", "uploaded_by", "uploaded_date", "instrument", "tuning", "artist", "album", "instrument_id", "tuning_id", "artist_id", "album_id",]
+        load_only = ["tab_id", "instrument_id", "tuning_id", "artist_id", "album_id"]
     artist = fields.Nested("ArtistSchema", only = ("name",))
     album = fields.Nested("AlbumSchema", only = ("name",))
     instrument = fields.Nested(InstrumentSchema, only = ("name",))
