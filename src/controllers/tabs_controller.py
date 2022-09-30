@@ -4,11 +4,13 @@ from models.tabs import Tab
 from schemas.tab_schema import tab_schema, tabs_schema
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from datetime import date
+from marshmallow.exceptions import ValidationError
 
 tabs = Blueprint("tabs", __name__, url_prefix="/tabs")
 
 @tabs.route("/", methods =["GET"])
 def get_tabs():
+    #narrow search to spcified criteria if query string present
     tabs_list = Tab.query.all()
     result = tabs_schema.dump(tabs_list)
     return jsonify(result)
@@ -18,7 +20,7 @@ def get_tabs():
 def get_tab(id):
     tabs = Tab.query.get(id)
     if not tabs:
-        return{"Error": "Tab not found"}
+        return{"Error": "Tab not found"}, 404
     result = tab_schema.dump(tabs)
     return jsonify(result)
 
@@ -28,10 +30,9 @@ def get_tab(id):
 @tabs.route("/", methods=["POST"])
 @jwt_required()
 def new_tab():
-    print(get_jwt_identity())
     if not "Moderator" in get_jwt_identity():
         if not "Uploader" in get_jwt_identity():
-            return {"Error": "You do not have the credentials to complete this action"}
+            return {"Error": "You do not have the credentials to complete this action"}, 401
 
 
     tab_fields = tab_schema.load(request.json)
@@ -47,17 +48,17 @@ def new_tab():
     )
     db.session.add(tab)
     db.session.commit()
-    return jsonify(tab_schema.dump(tab))
+    return jsonify(tab_schema.dump(tab)), 201
 
 
 @tabs.route("/<int:id>", methods = ["DELETE"])
 @jwt_required()
 def delete_tab(id):
     if not "Moderator" in get_jwt_identity():
-        return {"Error": "You do not have the credentials to complete this action"}
+        return {"Error": "You do not have the credentials to complete this action"}, 401
     tab = Tab.query.get(id)
     if not tab:
-        return{"Error": "Tab not found"}
+        return{"Error": "Tab not found"}, 404
     db.session.delete(tab)
     db.session.commit()
     return {"Message": "Tab removed successfully"}
@@ -68,13 +69,18 @@ def delete_tab(id):
 @jwt_required()
 def update_tab(id):
     if not "Moderator" in get_jwt_identity():
-        return {"Error": "You do not have the credentials to complete this action"}
+        return {"Error": "You do not have the credentials to complete this action"}, 401
     tab = Tab.query.get(id)
     if not tab:
-        return{"Error": "Tab not found"}
+        return{"Error": "Tab not found"}, 404
     tab_fields = tab_schema.load(request.json)
     tab.artist = tab_fields["artist"]
     tab.album = tab_fields["album"]
     tab.song = tab_fields["song"]
     db.session.commit()
-    return jsonify(tab_schema.dump(tab))
+    return jsonify(tab_schema.dump(tab)), 201
+
+
+@tabs.errorhandler(ValidationError)
+def tab_validation_error(error):
+    return error.messages, 400

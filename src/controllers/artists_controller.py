@@ -3,6 +3,7 @@ from main import db
 from models.artists import Artist
 from schemas.artist_schema import artist_schema, artists_schema
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from marshmallow.exceptions import ValidationError
 
 artists = Blueprint("artists", __name__, url_prefix="/artists")
 
@@ -19,17 +20,17 @@ def get_artists():
 def get_artist(id):
     artist = Artist.query.get(id)
     if not artist:
-        return{"Error": "Artist not found"}
+        return{"Error": "Artist not found"}, 404
     result = artist_schema.dump(artist)
     return jsonify(result)
 
-# Post and Artist
+# Post an Artist
 @artists.route("/", methods=["POST"])
 @jwt_required()
 def new_artist():
     if not "Moderator" in get_jwt_identity():
         if not "Uploader" in get_jwt_identity():
-            return {"Error": "You do not have the credentials to complete this action"}
+            return {"Error": "You do not have the credentials to complete this action"}, 401
 
 
     artist_fields = artist_schema.load(request.json)
@@ -40,17 +41,17 @@ def new_artist():
     )
     db.session.add(artist)
     db.session.commit()
-    return jsonify(artist_schema.dump(artist))
+    return jsonify(artist_schema.dump(artist)), 201
 
 # Delete an Artist
 @artists.route("/<int:id>", methods = ["DELETE"])
 @jwt_required()
 def delete_artist(id):
     if not "Moderator" in get_jwt_identity():
-        return {"Error": "You do not have the credentials to complete this action"}
+        return {"Error": "You do not have the credentials to complete this action"}, 401
     artist = Artist.query.get(id)
     if not artist:
-        return{"Error": "Artist not found"}
+        return{"Error": "Artist not found"}, 404
     db.session.delete(artist)
     db.session.commit()
     return {"Message": "Artist deleted successfully"}
@@ -61,12 +62,18 @@ def delete_artist(id):
 @jwt_required()
 def update_artist(id):
     if not "Moderator" in get_jwt_identity():
-        return {"Error": "You do not have the credentials to complete this action"}
+        return {"Error": "You do not have the credentials to complete this action"}, 401
     artist = Artist.query.get(id)
     if not artist:
-        return{"Error": "Artist not found"}
+        return{"Error": "Artist not found"}, 404
     artist_fields = artist_schema.load(request.json)
     artist.name = artist_fields["name"]
     artist.genre = artist_fields["genre"]
     db.session.commit()
-    return jsonify(artist_schema.dump(artist))
+    return jsonify(artist_schema.dump(artist)), 201
+
+
+
+@artists.errorhandler(ValidationError)
+def artist_validation_error(error):
+    return error.messages, 400

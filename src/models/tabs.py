@@ -1,5 +1,4 @@
 from main import db
-from datetime import date
 
 class Tab(db.Model):
     #define table name in DB

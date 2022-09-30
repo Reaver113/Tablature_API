@@ -105,8 +105,18 @@ def seed_db():
         name = "Bass",
         strings = "4"
     )
+    instruments3 = Instrument(
+        name = "Guitar",
+        strings = "7"
+    )
+    instruments4 = Instrument(
+        name = "Guitar",
+        strings = "8"
+    )
     db.session.add(instruments1)
     db.session.add(instruments2)
+    db.session.add(instruments3)
+    db.session.add(instruments4)
     db.session.commit()
     print("instruments created")
 
@@ -139,7 +149,7 @@ def seed_db():
         artist = artist1,
         album = album1,
         song = "Froggin Bullfish",
-        instrument = instruments1,
+        instrument = instruments2,
         tuning = tuning3,
         uploaded_by = user3,
         uploaded_date = date.today()
@@ -157,8 +167,8 @@ def seed_db():
         artist = artist1,
         album = album2,
         song = "The way the news goes",
-        instrument = instruments1,
-        tuning = tuning3,
+        instrument = instruments3,
+        tuning = tuning1,
         uploaded_by = user3,
         uploaded_date = date.today()
     )
