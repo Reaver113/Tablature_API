@@ -54,7 +54,7 @@ def delete_artist(id):
         return{"Error": "Artist not found"}, 404
     db.session.delete(artist)
     db.session.commit()
-    return {"Message": "Artist deleted successfully"}
+    return {"Message": "Artist deleted successfully"}, 202
 
 
 # Update an artist

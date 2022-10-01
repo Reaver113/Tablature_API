@@ -61,7 +61,7 @@ def delete_tab(id):
         return{"Error": "Tab not found"}, 404
     db.session.delete(tab)
     db.session.commit()
-    return {"Message": "Tab removed successfully"}
+    return {"Message": "Tab removed successfully"}, 202
 
 
 

@@ -54,7 +54,7 @@ def delete_album(id):
         return{"Error": "Album not found"}, 404
     db.session.delete(album)
     db.session.commit()
-    return {"Message": "Album removed successfully"}
+    return {"Message": "Album removed successfully"}, 202
 
 
 # Update an album
