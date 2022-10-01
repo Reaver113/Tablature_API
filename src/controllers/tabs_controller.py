@@ -108,7 +108,7 @@ def update_tab(id):
     db.session.commit()
     return jsonify(tab_schema.dump(tab)), 201
 
-
+# Error handeling
 @tabs.errorhandler(ValidationError)
 def tab_validation_error(error):
     return error.messages, 400

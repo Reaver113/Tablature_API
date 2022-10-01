@@ -72,7 +72,7 @@ def update_album(id):
     db.session.commit()
     return jsonify(album_schema.dump(album)), 201
 
-
+# Error handeling
 @albums.errorhandler(ValidationError)
 def album_validation_error(error):
     return error.messages, 400

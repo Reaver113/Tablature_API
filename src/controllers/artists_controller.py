@@ -73,7 +73,7 @@ def update_artist(id):
     return jsonify(artist_schema.dump(artist)), 201
 
 
-
+# Error handeling
 @artists.errorhandler(ValidationError)
 def artist_validation_error(error):
     return error.messages, 400

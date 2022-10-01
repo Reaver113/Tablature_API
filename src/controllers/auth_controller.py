@@ -69,7 +69,7 @@ def login_user():
         token = create_access_token(identity=str(user.user_id) + ("-Standard"), expires_delta=timedelta(days=1))
         return {"username": user.username, "role": user.role, "token": token}, 201
 
-
+# Error handeling
 @auth.errorhandler(ValidationError)
 def register_validation_error(error):
     return error.messages, 400
