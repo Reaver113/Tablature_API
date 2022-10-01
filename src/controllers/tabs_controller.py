@@ -8,9 +8,9 @@ from marshmallow.exceptions import ValidationError
 
 tabs = Blueprint("tabs", __name__, url_prefix="/tabs")
 
+# Get all Tabs
 @tabs.route("/", methods =["GET"])
 def get_tabs():
-    #narrow search to spcified criteria if query string present
     tabs_list = Tab.query.all()
     result = tabs_schema.dump(tabs_list)
     return jsonify(result)
@@ -26,7 +26,7 @@ def get_tab(id):
 
 
 
-
+# GET tab by its ID
 @tabs.route("/", methods=["POST"])
 @jwt_required()
 def new_tab():
@@ -51,6 +51,7 @@ def new_tab():
     return jsonify(tab_schema.dump(tab)), 201
 
 
+# Delete a Tab by its ID
 @tabs.route("/<int:id>", methods = ["DELETE"])
 @jwt_required()
 def delete_tab(id):
@@ -64,7 +65,7 @@ def delete_tab(id):
     return {"Message": "Tab removed successfully"}, 202
 
 
-
+# Change information of a tab by its ID
 @tabs.route("/<int:id>", methods = ["PUT"])
 @jwt_required()
 def update_tab(id):

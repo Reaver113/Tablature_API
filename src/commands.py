@@ -145,6 +145,7 @@ def seed_db():
     db.session.commit()
     print("Users created")
 
+    #seed tabs
     tab1 = Tab(
         artist = artist1,
         album = album1,
