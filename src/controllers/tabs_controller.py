@@ -35,7 +35,7 @@ def get_tabs():
             return jsonify(result)
             #catch invalid searchs
         else: 
-            return {"Error":"Invalid search parameters"}
+            return {"Error":"Invalid search parameters"}, 404
     else:
         tabs_list = Tab.query.all()
         result = tabs_schema.dump(tabs_list)
