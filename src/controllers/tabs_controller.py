@@ -11,9 +11,36 @@ tabs = Blueprint("tabs", __name__, url_prefix="/tabs")
 # Get all Tabs
 @tabs.route("/", methods =["GET"])
 def get_tabs():
-    tabs_list = Tab.query.all()
-    result = tabs_schema.dump(tabs_list)
-    return jsonify(result)
+    # QUERY SEARCHS
+        #search by artist_id
+    if request.args:
+        if request.args.get("artist_id"):
+            filtered_tabs_list = Tab.query.filter_by(artist_id = request.args.get("artist_id"))
+            result = tabs_schema.dump(filtered_tabs_list)
+            return jsonify(result)
+            #search by album_id
+        elif request.args.get("album_id"):
+            filtered_tabs_list = Tab.query.filter_by(album_id = request.args.get("album_id"))
+            result = tabs_schema.dump(filtered_tabs_list)
+            return jsonify(result)
+            #search by instrument_id
+        elif request.args.get("instrument_id"):
+            filtered_tabs_list = Tab.query.filter_by(instrument_id = request.args.get("instrument_id"))
+            result = tabs_schema.dump(filtered_tabs_list)
+            return jsonify(result)
+            #search by tuning_id
+        elif request.args.get("tuning_id"):
+            filtered_tabs_list = Tab.query.filter_by(tuning_id = request.args.get("tuning_id"))
+            result = tabs_schema.dump(filtered_tabs_list)
+            return jsonify(result)
+            #catch invalid searchs
+        else: 
+            return {"Error":"Invalid search parameters"}
+    else:
+        tabs_list = Tab.query.all()
+        result = tabs_schema.dump(tabs_list)
+        return jsonify(result)
+
 
 
 @tabs.route("/<int:id>", methods =["GET"])
